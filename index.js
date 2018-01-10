@@ -23,14 +23,16 @@ class Transmission extends EventEmitter {
   constructor (options = {}) {
     super()
 
+    this.username = options.username || ''
+    this.password = options.password || ''
     this.url = options.url || '/transmission/rpc'
     this.host = options.host || 'localhost'
     this.port = options.port || 9091
     this.ssl = options.ssl === true
     this.key = null
 
-    if (options.username || options.password) {
-      this.authHeader = 'Basic ' + new Buffer(options.username + (options.password ? ':' + options.password : '')).toString('base64')
+    if (this.username || this.password) {
+      this.authHeader = 'Basic ' + new Buffer(this.username + (this.password ? ':' + this.password : '')).toString('base64')
     }
 
     this.statusArray = ['STOPPED', 'CHECK_WAIT', 'CHECK', 'DOWNLOAD_WAIT', 'DOWNLOAD', 'SEED_WAIT', 'SEED', 'ISOLATED']
