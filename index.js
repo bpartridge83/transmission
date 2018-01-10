@@ -29,7 +29,7 @@ class Transmission extends EventEmitter {
     this.ssl = options.ssl === true
     this.key = null
 
-    if (options.username) {
+    if (options.username || options.password) {
       this.authHeader = 'Basic ' + new Buffer(options.username + (options.password ? ':' + options.password : '')).toString('base64')
     }
 
